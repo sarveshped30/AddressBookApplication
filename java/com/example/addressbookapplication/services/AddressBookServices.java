@@ -4,10 +4,12 @@ import com.example.addressbookapplication.dto.AddressBookDTO;
 import com.example.addressbookapplication.model.AddressBook;
 import com.example.addressbookapplication.repository.AddressBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AddressBookServices implements IAddressBook{
 
     @Autowired
