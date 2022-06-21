@@ -1,6 +1,7 @@
 package com.example.addressbookapplication.services;
 
 import com.example.addressbookapplication.dto.AddressBookDTO;
+import com.example.addressbookapplication.exception.UserNotFoundException;
 import com.example.addressbookapplication.model.AddressBook;
 import com.example.addressbookapplication.repository.AddressBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,25 @@ public class AddressBookServices implements IAddressBook{
     @Override
     public void deleteDataById(int id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public AddressBook getByName(String name) throws UserNotFoundException {
+        AddressBook addressBook = repository.findByName(name);
+        if(addressBook != null) {
+            return addressBook;
+        } else {
+            throw new UserNotFoundException("User not found with given name: " +name);
+        }
+    }
+
+    @Override
+    public void deleteDataByName(String name) throws UserNotFoundException {
+        AddressBook addressBook = repository.findByName(name);
+        if(addressBook != null) {
+            repository.delete(addressBook);
+        } else {
+            throw new UserNotFoundException("User not found with given name: " +name);
+        }
     }
 }
